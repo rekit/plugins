@@ -9,10 +9,6 @@ function ResolveRSModulePlugin(alias) {
 console.log('number of dll modules', Object.keys(dllManifest.content).length);
 
 ResolveRSModulePlugin.prototype.apply = function(resolver) {
-  resolver.plugin('module', (request, callback) => {
-    console.log('require module: ', request.path);
-    return callback();
-  });
   resolver.plugin('file', (request, callback) => {
     const rsKey = `/node_modules/${this.alias}/`;
     if (request.path.indexOf(rsKey) >= 0) {

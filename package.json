@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "7.1.6",
     "@svgr/webpack": "2.4.1",
+    "antd": "^3.13.3",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
@@ -59,6 +60,7 @@
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "resolve": "1.8.1",
     "style-loader": "0.23.0",
     "terser-webpack-plugin": "1.1.0",
@@ -73,7 +75,6 @@
     "build": "node scripts/build.js",
     "test-build": "node scripts/testBuild.js",
     "test": "node scripts/test.js"
-
   },
   "eslintConfig": {
     "extends": "react-app"

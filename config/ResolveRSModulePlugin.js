@@ -6,12 +6,13 @@ const paths = require('./paths');
 function ResolveRSModulePlugin(alias) {
   this.alias = alias || 'rs';
 }
-console.log(
-  'ddl',
-  Object.keys(dllManifest.content).length,
-  dllManifest.content['./features/common/SVGIcon.js'],
-);
+console.log('number of dll modules', Object.keys(dllManifest.content).length);
+
 ResolveRSModulePlugin.prototype.apply = function(resolver) {
+  resolver.plugin('module', (request, callback) => {
+    console.log('require module: ', request.path);
+    return callback();
+  });
   resolver.plugin('file', (request, callback) => {
     const rsKey = `/node_modules/${this.alias}/`;
     if (request.path.indexOf(rsKey) >= 0) {
@@ -19,7 +20,7 @@ ResolveRSModulePlugin.prototype.apply = function(resolver) {
       const mid = rsPath.replace(paths.appSrc, '.');
       if (dllManifest.content[mid]) {
         request.path = rsPath;
-        resolver.doResolve(
+        return resolver.doResolve(
           'existing-file',
           request,
           'existing file: ' + request.path,
@@ -28,27 +29,6 @@ ResolveRSModulePlugin.prototype.apply = function(resolver) {
         );
       }
     }
-    //  else if (request.path.indexOf('/node_modules/') >= 0) {
-    //   // console.log('file: ', request.path);
-    //   const mid = request.path.replace(paths.appRoot, '../../..');
-    //   console.log('middd:', mid);
-    //   if (dllManifest.content[mid]) {
-    //     const rsPath = request.path.replace(
-    //       paths.appRoot,
-    //       '../..',
-    //       request.path.replace(paths.appRoot + '/', ''),
-    //     );
-    //     console.log('rsPath: ', rsPath);
-    //     request.path = rsPath;
-    //     resolver.doResolve(
-    //       'existing-file',
-    //       request,
-    //       'existing file: ' + request.path,
-    //       callback,
-    //       true,
-    //     );
-    //   }
-    // }
     return callback();
   });
 };

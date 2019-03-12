@@ -9,4 +9,3 @@ export { default as view } from './view';
 export { default as colors } from '../colors';
 export { default as icons } from './icons';
 export { default as dashboard } from './dashboard';
-export const name = 'cra';
